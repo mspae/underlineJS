@@ -12,6 +12,7 @@
 
   <script src="//code.createjs.com/soundjs-0.6.0.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"></script>
+  <script src="/build/index.js"></script>
 
   <script type="text/javascript">
     window.heap=window.heap||[],heap.load=function(t,e){window.heap.appid=t,window.heap.config=e;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+t+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(t){return function(){heap.push([t].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
@@ -103,7 +104,7 @@
 </footer>
 <script>
  (function() {
-  ".underline"
+      var underline = new Underline(".underline", {});
 
 
 				// detect if IE : from http://stackoverflow.com/a/16657946
