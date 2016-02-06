@@ -12,7 +12,7 @@
     module.exports = factory();
   } else {
     // Browser globals
-    root.underline = factory();
+    root.Underline = factory();
   }
 }(this, function() {
   var baselineRatio = require('./baseline-ratio');
@@ -83,16 +83,15 @@
     // otherwise just use it
     element = typeof element === 'string' ? document.querySelectorAll(element) : element;
 
-    ;
     [].forEach.call(element, function(el) {
-      var elementStyles = getElementStyles(element);
+      var elementStyles = getElementStyles(el);
       var underline;
       // single line or multiple line?
       if (elementStyles.height > elementStyles.lineHeight) {
-        underline = new MultipleUnderline(element, underlineStyles, elementStyles);
+        underline = new MultipleUnderline(el, underlineStyles, elementStyles);
       } else {
         // single line
-        underline = new SingleUnderline(element, underlineStyles, elementStyles);
+        underline = new SingleUnderline(el, underlineStyles, elementStyles);
       }
       this.underlines.push(underline);
     }.bind(this));
