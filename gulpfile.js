@@ -10,7 +10,7 @@ var express = require('express')
 var browserifyOptions = assign({}, watchify.args, {
   entries: ['js/index.js'],
   debug: true,
-  standalone: 'underlinejs'
+  standalone: 'Underline'
 });
 
 var b = watchify(browserify(browserifyOptions))
