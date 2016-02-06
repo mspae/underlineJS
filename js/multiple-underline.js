@@ -15,6 +15,12 @@
     root.MultipleUnderline = factory();
   }
 }(this, function() {
+  var multiplyValue = require('./multiply-value');
+  var optimalStrokeWidthPos = require('./optimal-stroke-width-pos');
+  var GuitarString = require('./guitar-string');
+  var Point = require('./point');
+  var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+
   function MultipleUnderline(element, underlineStyles, elementStyles) {
     //ctor
     this.element = element;

@@ -15,32 +15,10 @@
     root.SingleUnderline = factory();
   }
 }(this, function() {
-  var multiplyValue = function(value, multiplier) {
-    var str = value;
-    var m = multiplier;
-    var result = str.match(/(\d*\.?\d*)(.*)/);
-    //http://stackoverflow.com/questions/2868947/split1px-into-1px-1-px-in-javascript
-    return result[1] * m + result[2];
-  }
-
-  var optimalStrokeWidthPos = function(strokeWidth, posY) {
-    if (strokeWidth < 1) {
-      posY = Math.round(posY - 0.5) + 0.5;
-    } else if (strokeWidth >= 1) {
-      strokeWidth = Math.round(strokeWidth);
-      if (strokeWidth % 2) {
-        // odd, posY -> 0.5
-        posY = Math.round(posY - 0.5) + 0.5;
-      } else {
-        // even, posY -> 1
-        posY = Math.round(posY);
-      }
-    }
-    return {
-      strokeWidth: strokeWidth,
-      posY: posY
-    }
-  }
+  var multiplyValue = require('./multiply-value');
+  var optimalStrokeWidthPos = require('./optimal-stroke-width-pos');
+  var GuitarString = require('./guitar-string');
+  var Point = require('./point');
 
   function SingleUnderline(element, underlineStyles, elementStyles) {
     //ctor
@@ -98,7 +76,7 @@
     this.underlinePosition = adjustValue.posY;
 
     // todo: if last character is a space, remove the space
-    textWidth = this.ctx.measureText(this.text).width;
+    var textWidth = this.ctx.measureText(this.text).width;
 
     this.myString = new GuitarString(this.ctx,
       new Point(0, this.underlinePosition),

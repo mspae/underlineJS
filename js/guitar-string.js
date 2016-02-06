@@ -15,7 +15,31 @@
     root.GuitarString = factory();
   }
 }(this, function() {
+  var Point = require('./point');
   var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+
+  //audio play multiple channels at the same time: http://www.storiesinflight.com/html5/audio.html
+  var channel_max = 10; // number of channels
+  var audiochannels = new Array();
+  for (var a = 0; a < channel_max; a++) { // prepare the channels
+    audiochannels[a] = new Array();
+    audiochannels[a]['channel'] = new Audio(); // create a new audio object
+    audiochannels[a]['finished'] = -1; // expected end time for this channel
+  }
+
+  function play_multi_sound(s) {
+    for (var a = 0; a < audiochannels.length; a++) {
+      var thistime = new Date();
+      if (audiochannels[a]['finished'] < thistime.getTime()) { // is this channel finished?
+        audiochannels[a]['finished'] = thistime.getTime() + document.getElementById(s).duration * 1000;
+        audiochannels[a]['channel'].src = document.getElementById(s).src;
+        audiochannels[a]['channel'].load();
+        audiochannels[a]['channel'].play();
+        break;
+      }
+    }
+  }
+
 
 
   var circleCenter = function(startPoint, thirdPoint, endPoint) {
@@ -43,11 +67,6 @@
     return Math.sqrt((x -= x0) * x + (y -= y0) * y);
   };
 
-  var Point = function(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-
 
   var intersects = function(a, b, c, d, p, q, r, s) {
     // returns true if the line from (a,b)->(c,d) intersects with (p,q)->(r,s)
@@ -65,7 +84,7 @@
   var musicLevel = function(startPoint, endPoint, ratio) {
     var length = dist(startPoint.x, startPoint.y, endPoint.x, endPoint.y) / ratio;
 
-    level = Math.floor(length / 30);
+    var level = Math.floor(length / 30);
     if (level > 19) {
       level = 19;
     }
