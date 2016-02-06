@@ -104,7 +104,11 @@
 </footer>
 <script>
  (function() {
-      var underline = new Underline(".underline", {});
+        window.addEventListener('load', function() {
+          var underline = new Underline(".underline", {
+            animate: true
+          });
+        });
 
 
 				// detect if IE : from http://stackoverflow.com/a/16657946

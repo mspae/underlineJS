@@ -95,6 +95,10 @@
       }
       this.underlines.push(underline);
     }.bind(this));
+
+    if (options.animate) {
+      this.animate();
+    }
   };
 
   Underline.prototype.animate = function() {
@@ -103,7 +107,8 @@
       underline.update();
       underline.draw();
     }.bind(this))
-    requestAnimFrame(this.animate);
+    requestAnimFrame(this.animate.bind(this));
   };
+
   return Underline;
 }));
